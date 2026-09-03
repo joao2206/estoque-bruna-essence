@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.database import test_database_connection
+from app.routers.companies import router as companies_router
 
 app = FastAPI(
     title="Estoque Bruna Essence API",
@@ -14,6 +15,8 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+app.include_router(companies_router)
 
 
 @app.get("/")
