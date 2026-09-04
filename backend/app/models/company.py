@@ -5,6 +5,11 @@ from sqlalchemy.orm import Mapped, mapped_column
 
 from app.database import Base
 
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from app.models.user import User
 
 class Company(Base):
     __tablename__ = "companies"
@@ -37,4 +42,8 @@ class Company(Base):
         nullable=False,
         server_default=func.now(),
         onupdate=func.now(),
+    )
+
+    users: Mapped[list["User"]] = relationship(
+    back_populates="company",
     )
