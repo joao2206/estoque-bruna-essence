@@ -11,6 +11,7 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from app.models.category import Category
     from app.models.user import User
+    from app.models.product import Product
 
 class Company(Base):
     __tablename__ = "companies"
@@ -51,4 +52,8 @@ class Company(Base):
 
     categories: Mapped[list["Category"]] = relationship(
         back_populates="company",
+    )
+
+    products: Mapped[list["Product"]] = relationship(
+    back_populates="company",
     )

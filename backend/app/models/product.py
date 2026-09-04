@@ -6,6 +6,7 @@ from sqlalchemy import (
     DateTime,
     ForeignKey,
     String,
+    Text,
     UniqueConstraint,
     func,
     true,
@@ -15,16 +16,17 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from app.database import Base
 
 if TYPE_CHECKING:
+    from app.models.category import Category
     from app.models.company import Company
-    from app.models.product import Product
 
-class Category(Base):
-    __tablename__ = "categories"
+
+class Product(Base):
+    __tablename__ = "products"
     __table_args__ = (
         UniqueConstraint(
             "company_id",
             "name",
-            name="uq_categories_company_name",
+            name="uq_products_company_name",
         ),
     )
 
@@ -36,9 +38,25 @@ class Category(Base):
         index=True,
     )
 
-    name: Mapped[str] = mapped_column(
-        String(100),
+    category_id: Mapped[int] = mapped_column(
+        ForeignKey("categories.id"),
         nullable=False,
+        index=True,
+    )
+
+    name: Mapped[str] = mapped_column(
+        String(150),
+        nullable=False,
+    )
+
+    description: Mapped[str | None] = mapped_column(Text)
+
+    brand: Mapped[str | None] = mapped_column(
+        String(100),
+    )
+
+    image_url: Mapped[str | None] = mapped_column(
+        String(500),
     )
 
     active: Mapped[bool] = mapped_column(
@@ -62,9 +80,9 @@ class Category(Base):
     )
 
     company: Mapped["Company"] = relationship(
-        back_populates="categories",
+        back_populates="products",
     )
 
-    products: Mapped[list["Product"]] = relationship(
-    back_populates="category",
-   )
+    category: Mapped["Category"] = relationship(
+        back_populates="products",
+    )
