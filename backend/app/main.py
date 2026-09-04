@@ -4,6 +4,7 @@ from app.database import test_database_connection
 from app.routers.companies import router as companies_router
 from app.routers.users import router as users_router
 from app.routers.auth import router as auth_router
+from app.routers.categories import router as categories_router
 
 app = FastAPI(
     title="Estoque Bruna Essence API",
@@ -21,6 +22,7 @@ app.add_middleware(
 app.include_router(companies_router)
 app.include_router(users_router)
 app.include_router(auth_router)
+app.include_router(categories_router)
 
 @app.get("/")
 def home():

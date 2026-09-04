@@ -9,6 +9,7 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from app.models.category import Category
     from app.models.user import User
 
 class Company(Base):
@@ -46,4 +47,8 @@ class Company(Base):
 
     users: Mapped[list["User"]] = relationship(
     back_populates="company",
+    )
+
+    categories: Mapped[list["Category"]] = relationship(
+        back_populates="company",
     )
