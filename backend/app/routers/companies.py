@@ -1,12 +1,12 @@
 from typing import Annotated
 
 from fastapi import APIRouter, Depends, HTTPException, status
-from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from app.database import get_db
+from app.dependencies.auth import CurrentUser
 from app.models.company import Company
-from app.schemas.company import CompanyCreate, CompanyResponse
+from app.schemas.company import CompanyResponse
 
 router = APIRouter(
     prefix="/companies",
@@ -16,49 +16,47 @@ router = APIRouter(
 DatabaseSession = Annotated[Session, Depends(get_db)]
 
 
-@router.post(
-    "",
-    response_model=CompanyResponse,
-    status_code=status.HTTP_201_CREATED,
-)
-def create_company(
-    company_data: CompanyCreate,
+@router.get("/me", response_model=CompanyResponse)
+def get_current_company(
     database: DatabaseSession,
+    current_user: CurrentUser,
 ):
-    if company_data.cnpj:
-        existing_company = database.scalar(
-            select(Company).where(Company.cnpj == company_data.cnpj)
+    company = database.get(Company, current_user.company_id)
+
+    if company is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Empresa não encontrada.",
         )
-
-        if existing_company:
-            raise HTTPException(
-                status_code=status.HTTP_409_CONFLICT,
-                detail="Já existe uma empresa cadastrada com este CNPJ.",
-            )
-
-    company = Company(**company_data.model_dump())
-
-    database.add(company)
-    database.commit()
-    database.refresh(company)
 
     return company
 
 
 @router.get("", response_model=list[CompanyResponse])
-def list_companies(database: DatabaseSession):
-    companies = database.scalars(
-        select(Company).order_by(Company.name)
-    ).all()
+def list_companies(
+    database: DatabaseSession,
+    current_user: CurrentUser,
+):
+    company = database.get(Company, current_user.company_id)
 
-    return companies
+    if company is None:
+        return []
+
+    return [company]
 
 
 @router.get("/{company_id}", response_model=CompanyResponse)
 def get_company(
     company_id: int,
     database: DatabaseSession,
+    current_user: CurrentUser,
 ):
+    if company_id != current_user.company_id:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Empresa não encontrada.",
+        )
+
     company = database.get(Company, company_id)
 
     if company is None:
