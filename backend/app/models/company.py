@@ -12,6 +12,7 @@ if TYPE_CHECKING:
     from app.models.category import Category
     from app.models.user import User
     from app.models.product import Product
+    from app.models.product_variant import ProductVariant
 
 class Company(Base):
     __tablename__ = "companies"
@@ -55,5 +56,9 @@ class Company(Base):
     )
 
     products: Mapped[list["Product"]] = relationship(
+    back_populates="company",
+    )
+
+    product_variants: Mapped[list["ProductVariant"]] = relationship(
     back_populates="company",
     )

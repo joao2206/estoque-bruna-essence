@@ -18,6 +18,7 @@ from app.database import Base
 if TYPE_CHECKING:
     from app.models.category import Category
     from app.models.company import Company
+    from app.models.product_variant import ProductVariant
 
 
 class Product(Base):
@@ -85,4 +86,8 @@ class Product(Base):
 
     category: Mapped["Category"] = relationship(
         back_populates="products",
+    )
+
+    variants: Mapped[list["ProductVariant"]] = relationship(
+    back_populates="product",
     )
