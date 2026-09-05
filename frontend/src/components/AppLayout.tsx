@@ -55,10 +55,10 @@ export function AppLayout() {
             <span>Produtos</span>
         </NavLink>
 
-        <span className="disabled-link">
+        <NavLink to="/stock">
             <Warehouse size={18} />
             <span>Estoque</span>
-        </span>
+        </NavLink>
 
         <span className="disabled-link">
             <ShoppingBag size={18} />

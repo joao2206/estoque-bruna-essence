@@ -54,16 +54,16 @@ export function DashboardPage() {
           </div>
         </Link>
 
-        <div className="dashboard-shortcut disabled">
+        <Link to="/stock" className="dashboard-shortcut">
           <div className="dashboard-shortcut-icon">
             <Warehouse size={21} />
           </div>
 
           <div>
             <strong>Estoque</strong>
-            <small>Disponível na próxima etapa</small>
+            <small>Consulte os saldos disponíveis</small>
           </div>
-        </div>
+        </Link>
       </section>
     </div>
   )

@@ -7,6 +7,7 @@ import { DashboardPage } from './pages/DashboardPage'
 import { LoginPage } from './pages/LoginPage'
 import { ProductsPage } from './pages/ProductsPage'
 import { ProductVariantsPage } from './pages/ProductVariantsPage'
+import { StockPage } from './pages/StockPage'
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path="/categories" element={<CategoriesPage />} />
         <Route path="/products" element={<ProductsPage />} />
         <Route path="/products/:productId/variants" element={<ProductVariantsPage />} />
+        <Route path="/stock" element={<StockPage />} />
       </Route>
 
       <Route path="*" element={<Navigate to="/" replace />} />
