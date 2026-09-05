@@ -1,88 +1,37 @@
-.app-layout {
+:root {
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: #2d2025;
+  background: #f7f5f6;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+  margin: 0;
+}
+
+body {
+  min-width: 320px;
   min-height: 100vh;
-  display: grid;
-  grid-template-columns: 260px 1fr;
 }
 
-.sidebar {
-  display: flex;
-  flex-direction: column;
-  padding: 24px 18px;
-  color: white;
-  background: #6f304b;
+button,
+input,
+select,
+textarea {
+  font: inherit;
 }
 
-.sidebar-brand {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 36px;
-}
-
-.sidebar-brand > span {
-  display: grid;
-  width: 44px;
-  height: 44px;
-  place-items: center;
-  border-radius: 50%;
-  background: white;
-  color: #6f304b;
-  font-weight: 700;
-}
-
-.sidebar-brand div,
-.sidebar-user div {
-  display: grid;
-  gap: 3px;
-}
-
-.sidebar small {
-  color: #e8cad7;
-}
-
-.sidebar nav {
-  display: grid;
-  gap: 8px;
-}
-
-.sidebar nav a,
-.disabled-link {
-  padding: 12px 14px;
-  border-radius: 9px;
-  color: #f9edf2;
-  text-decoration: none;
-}
-
-.sidebar nav a:hover,
-.sidebar nav a.active {
-  background: rgb(255 255 255 / 14%);
-}
-
-.disabled-link {
-  opacity: 0.45;
-}
-
-.sidebar-user {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px;
-  margin-top: auto;
-  padding-top: 20px;
-  border-top: 1px solid rgb(255 255 255 / 15%);
-}
-
-.sidebar-user button {
-  border: 0;
-  color: white;
-  background: transparent;
+button {
   cursor: pointer;
 }
 
-.app-content {
-  min-width: 0;
-  padding: 32px;
-}
+/* Estrutura compartilhada das páginas */
 
 .page {
   width: 100%;
@@ -103,53 +52,14 @@
   color: #74636b;
 }
 
-.welcome-card,
-.category-form-card,
+/* Tabelas */
+
 .table-card {
   padding: 24px;
+  overflow-x: auto;
   border-radius: 16px;
   background: white;
   box-shadow: 0 4px 20px rgb(70 41 53 / 7%);
-}
-
-.category-form-card {
-  margin-bottom: 20px;
-}
-
-.category-form-card form {
-  display: flex;
-  align-items: end;
-  gap: 12px;
-}
-
-.category-form-card form > div {
-  display: grid;
-  flex: 1;
-  gap: 8px;
-}
-
-.category-form-card input {
-  padding: 12px 14px;
-  border: 1px solid #d9ccd1;
-  border-radius: 9px;
-}
-
-.category-form-card button {
-  padding: 12px 20px;
-  border: 0;
-  border-radius: 9px;
-  color: white;
-  background: #8b405f;
-  cursor: pointer;
-}
-
-.form-error {
-  margin-top: 14px;
-  color: #a1263a;
-}
-
-.table-card {
-  overflow-x: auto;
 }
 
 .table-card table {
@@ -164,153 +74,31 @@
   text-align: left;
 }
 
+.table-card th {
+  color: #74636b;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.table-description {
+  display: block;
+  max-width: 400px;
+  margin-top: 4px;
+  color: #74636b;
+}
+
+/* Estados */
+
 .status-active {
+  display: inline-block;
   padding: 5px 9px;
   border-radius: 20px;
-  color: #23794b;
   background: #e6f6ed;
+  color: #23794b;
   font-size: 13px;
 }
 
-@media (max-width: 760px) {
-  .app-layout {
-    grid-template-columns: 1fr;
-  }
-
-  .sidebar {
-    min-height: auto;
-  }
-
-  .sidebar nav {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .sidebar-user {
-    margin-top: 24px;
-  }
-
-  .app-content {
-    padding: 20px;
-  }
-
-  .category-form-card form {
-    align-items: stretch;
-    flex-direction: column;
-  }
-  .product-form-card {
-  margin-bottom: 20px;
-  padding: 24px;
-  border-radius: 16px;
-  background: white;
-  box-shadow: 0 4px 20px rgb(70 41 53 / 7%);
-  }
-
-  .product-form-card h2,
-  .table-toolbar h2 {
-    margin: 0 0 20px;
-    font-size: 18px;
-  }
-
-  .product-form-card form {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 18px;
-  }
-
-  .form-field {
-    display: grid;
-    gap: 8px;
-  }
-
-  .form-field label {
-    font-weight: 600;
-  }
-
-  .form-field input,
-  .form-field select,
-  .form-field textarea,
-  .table-toolbar input {
-    width: 100%;
-    padding: 12px 14px;
-    border: 1px solid #d9ccd1;
-    border-radius: 9px;
-    background: white;
-  }
-
-  .full-width {
-    grid-column: 1 / -1;
-  }
-
-  .form-actions {
-    display: flex;
-    justify-content: flex-end;
-  }
-
-  .form-actions button {
-    padding: 12px 20px;
-    border: 0;
-    border-radius: 9px;
-    color: white;
-    background: #8b405f;
-    cursor: pointer;
-  }
-
-  .table-toolbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 18px;
-    margin-bottom: 18px;
-  }
-
-  .table-toolbar h2 {
-    margin: 0;
-  }
-
-  .table-toolbar input {
-    max-width: 280px;
-  }
-
-  .table-description {
-    display: block;
-    max-width: 400px;
-    margin-top: 4px;
-    color: #74636b;
-  }
-
-  @media (max-width: 760px) {
-    .product-form-card form {
-      grid-template-columns: 1fr;
-    }
-
-    .table-toolbar {
-      align-items: stretch;
-      flex-direction: column;
-    }
-
-    .table-toolbar input {
-      max-width: none;
-    }
-  }
-  .back-link {
-  display: inline-block;
-  margin-bottom: 20px;
-  color: #8b405f;
-  font-weight: 600;
-  text-decoration: none;
-  }
-
-  .table-action {
-    display: inline-block;
-    padding: 8px 12px;
-    border-radius: 8px;
-    color: #8b405f;
-    background: #f8edf1;
-    font-weight: 600;
-    text-decoration: none;
-  }
-
-  .table-action:hover {
-    background: #efd9e2;
-  }
+.form-error {
+  margin-top: 14px;
+  color: #a1263a;
 }

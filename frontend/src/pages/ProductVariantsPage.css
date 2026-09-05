@@ -1,0 +1,140 @@
+.variants-back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 20px;
+  color: #8b405f;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.variants-back-link:hover {
+  text-decoration: underline;
+}
+
+.variants-form-card {
+  margin-bottom: 20px;
+  padding: 24px;
+  border-radius: 16px;
+  background: white;
+  box-shadow: 0 4px 20px rgb(70 41 53 / 7%);
+}
+
+.variants-card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.variants-card-icon {
+  display: grid;
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+  place-items: center;
+  border-radius: 10px;
+  background: #f8edf1;
+  color: #8b405f;
+}
+
+.variants-card-header h2 {
+  margin: 0 0 3px;
+  font-size: 18px;
+}
+
+.variants-card-header p {
+  margin: 0;
+  color: #74636b;
+  font-size: 14px;
+}
+
+.variants-form {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+.variant-field {
+  display: grid;
+  gap: 8px;
+}
+
+.variant-field label {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.variant-field input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #d9ccd1;
+  border-radius: 9px;
+  outline: none;
+  background: white;
+}
+
+.variant-field input:focus {
+  border-color: #8b405f;
+  box-shadow: 0 0 0 3px rgb(139 64 95 / 10%);
+}
+
+.variants-form-actions {
+  display: flex;
+  justify-content: flex-end;
+  grid-column: 1 / -1;
+}
+
+.variant-submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 18px;
+  border: 0;
+  border-radius: 9px;
+  background: #8b405f;
+  color: white;
+  font-weight: 600;
+}
+
+.variant-submit:hover:not(:disabled) {
+  background: #75354f;
+}
+
+.variant-submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.variants-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.variants-list-header h2 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.variants-count {
+  padding: 5px 9px;
+  border-radius: 20px;
+  background: #f8edf1;
+  color: #8b405f;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.variant-sku {
+  color: #8b405f;
+}
+
+@media (max-width: 760px) {
+  .variants-form {
+    grid-template-columns: 1fr;
+  }
+}

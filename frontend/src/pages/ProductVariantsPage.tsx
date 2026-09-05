@@ -9,6 +9,13 @@ import {
 import { getProduct } from '../services/products'
 import type { Product } from '../types/product'
 import type { ProductVariant } from '../types/productVariant'
+import {
+  ArrowLeft,
+  Layers3,
+  Plus,
+} from 'lucide-react'
+
+import './ProductVariantsPage.css'
 
 const currencyFormatter = new Intl.NumberFormat('pt-BR', {
   style: 'currency',
@@ -99,8 +106,9 @@ export function ProductVariantsPage() {
   if (invalidProductId) {
     return (
         <div className="page">
-        <Link className="back-link" to="/products">
-            ← Voltar para produtos
+        <Link className="variants-back-link" to="/products">
+        <ArrowLeft size={16} />
+        Voltar para produtos
         </Link>
 
         <div className="form-error">
@@ -116,141 +124,174 @@ export function ProductVariantsPage() {
 
   return (
     <div className="page">
-      <Link className="back-link" to="/products">
-        ← Voltar para produtos
-      </Link>
+        <Link className="variants-back-link" to="/products">
+        <ArrowLeft size={16} />
+        Voltar para produtos
+        </Link>
 
-      <div className="page-header">
-        <div>
-          <h1>Variações</h1>
-          <p>{product?.name ?? 'Produto não encontrado'}</p>
+        <div className="page-header">
+        <h1>Variações</h1>
+        <p>{product?.name ?? 'Produto não encontrado'}</p>
         </div>
-      </div>
 
-      <section className="product-form-card">
-        <h2>Nova variação</h2>
+        <section className="variants-form-card">
+        <div className="variants-card-header">
+            <div className="variants-card-icon">
+            <Layers3 size={21} />
+            </div>
 
-        <form onSubmit={handleSubmit}>
-          <div className="form-field">
+            <div>
+            <h2>Nova variação</h2>
+            <p>
+                Cadastre cor, tamanho, preços e estoque mínimo.
+            </p>
+            </div>
+        </div>
+
+        <form className="variants-form" onSubmit={handleSubmit}>
+            <div className="variant-field">
             <label htmlFor="variant-color">Cor</label>
-            <input
-              id="variant-color"
-              value={color}
-              onChange={(event) => setColor(event.target.value)}
-              placeholder="Ex.: Preto"
-              required
-            />
-          </div>
 
-          <div className="form-field">
+            <input
+                id="variant-color"
+                value={color}
+                onChange={(event) => setColor(event.target.value)}
+                placeholder="Ex.: Preto"
+                required
+            />
+            </div>
+
+            <div className="variant-field">
             <label htmlFor="variant-size">Tamanho</label>
-            <input
-              id="variant-size"
-              value={size}
-              onChange={(event) => setSize(event.target.value)}
-              placeholder="Ex.: M"
-              required
-            />
-          </div>
 
-          <div className="form-field">
+            <input
+                id="variant-size"
+                value={size}
+                onChange={(event) => setSize(event.target.value)}
+                placeholder="Ex.: M"
+                required
+            />
+            </div>
+
+            <div className="variant-field">
             <label htmlFor="cost-price">Preço de custo</label>
-            <input
-              id="cost-price"
-              type="number"
-              min="0"
-              step="0.01"
-              value={costPrice}
-              onChange={(event) => setCostPrice(event.target.value)}
-              placeholder="0,00"
-              required
-            />
-          </div>
 
-          <div className="form-field">
+            <input
+                id="cost-price"
+                type="number"
+                min="0"
+                step="0.01"
+                value={costPrice}
+                onChange={(event) => setCostPrice(event.target.value)}
+                placeholder="0,00"
+                required
+            />
+            </div>
+
+            <div className="variant-field">
             <label htmlFor="sale-price">Preço de venda</label>
-            <input
-              id="sale-price"
-              type="number"
-              min="0"
-              step="0.01"
-              value={salePrice}
-              onChange={(event) => setSalePrice(event.target.value)}
-              placeholder="0,00"
-              required
-            />
-          </div>
 
-          <div className="form-field">
+            <input
+                id="sale-price"
+                type="number"
+                min="0"
+                step="0.01"
+                value={salePrice}
+                onChange={(event) => setSalePrice(event.target.value)}
+                placeholder="0,00"
+                required
+            />
+            </div>
+
+            <div className="variant-field">
             <label htmlFor="minimum-stock">Estoque mínimo</label>
+
             <input
-              id="minimum-stock"
-              type="number"
-              min="0"
-              step="1"
-              value={minimumStock}
-              onChange={(event) =>
+                id="minimum-stock"
+                type="number"
+                min="0"
+                step="1"
+                value={minimumStock}
+                onChange={(event) =>
                 setMinimumStock(event.target.value)
-              }
-              required
+                }
+                required
             />
-          </div>
+            </div>
 
-          {error && (
-            <div className="form-error full-width">{error}</div>
-          )}
+            {error && (
+            <div className="form-error full-width">
+                {error}
+            </div>
+            )}
 
-          <div className="form-actions full-width">
-            <button disabled={saving}>
-              {saving ? 'Salvando...' : 'Cadastrar variação'}
+            <div className="variants-form-actions">
+            <button
+                className="variant-submit"
+                disabled={saving}
+            >
+                <Plus size={18} />
+                {saving ? 'Salvando...' : 'Cadastrar variação'}
             </button>
-          </div>
+            </div>
         </form>
-      </section>
+        </section>
 
-      <section className="table-card">
-        <div className="table-toolbar">
-          <h2>Variações cadastradas</h2>
+        <section className="table-card">
+        <div className="variants-list-header">
+            <h2>Variações cadastradas</h2>
+
+            <span className="variants-count">
+            {variants.length}
+            </span>
         </div>
 
         {variants.length === 0 ? (
-          <p>Nenhuma variação cadastrada.</p>
+            <p>Nenhuma variação cadastrada.</p>
         ) : (
-          <table>
+            <table>
             <thead>
-              <tr>
+                <tr>
                 <th>SKU</th>
                 <th>Cor</th>
                 <th>Tamanho</th>
                 <th>Custo</th>
                 <th>Venda</th>
                 <th>Mínimo</th>
-              </tr>
+                </tr>
             </thead>
 
             <tbody>
-              {variants.map((variant) => (
+                {variants.map((variant) => (
                 <tr key={variant.id}>
-                  <td><strong>{variant.sku}</strong></td>
-                  <td>{variant.color}</td>
-                  <td>{variant.size}</td>
-                  <td>
+                    <td>
+                    <strong className="variant-sku">
+                        {variant.sku}
+                    </strong>
+                    </td>
+
+                    <td>{variant.color}</td>
+                    <td>{variant.size}</td>
+
+                    <td>
                     {currencyFormatter.format(
-                      Number(variant.cost_price),
+                        Number(variant.cost_price),
                     )}
-                  </td>
-                  <td>
+                    </td>
+
+                    <td>
                     {currencyFormatter.format(
-                      Number(variant.sale_price),
+                        Number(variant.sale_price),
                     )}
-                  </td>
-                  <td>{variant.minimum_stock}</td>
+                    </td>
+
+                    <td>{variant.minimum_stock}</td>
                 </tr>
-              ))}
+                ))}
             </tbody>
-          </table>
+            </table>
         )}
-      </section>
+        </section>
     </div>
-  )
+    )
 }

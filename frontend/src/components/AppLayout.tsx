@@ -1,15 +1,9 @@
 import { useEffect, useState } from 'react'
-import {
-  NavLink,
-  Outlet,
-  useNavigate,
-} from 'react-router'
-
-import {
-  getCurrentUser,
-  logout,
-} from '../services/auth'
+import { NavLink, Outlet, useNavigate,} from 'react-router'
+import { getCurrentUser, logout,} from '../services/auth'
 import type { AuthUser } from '../types/auth'
+import { LayoutDashboard, Tags, Package, Warehouse, ShoppingBag, LogOut,} from 'lucide-react'
+import './AppLayout.css'
 
 export function AppLayout() {
   const navigate = useNavigate()
@@ -46,19 +40,30 @@ export function AppLayout() {
         </div>
 
         <nav>
-          <NavLink to="/" end>
-            Painel
-          </NavLink>
+        <NavLink to="/" end>
+            <LayoutDashboard size={18} />
+            <span>Painel</span>
+        </NavLink>
 
-          <NavLink to="/categories">
-            Categorias
-          </NavLink>
+        <NavLink to="/categories">
+            <Tags size={18} />
+            <span>Categorias</span>
+        </NavLink>
 
-          <NavLink to="/products">
-            Produtos
-          </NavLink>
-          <span className="disabled-link">Estoque</span>
-          <span className="disabled-link">Vendas</span>
+        <NavLink to="/products">
+            <Package size={18} />
+            <span>Produtos</span>
+        </NavLink>
+
+        <span className="disabled-link">
+            <Warehouse size={18} />
+            <span>Estoque</span>
+        </span>
+
+        <span className="disabled-link">
+            <ShoppingBag size={18} />
+            <span>Vendas</span>
+        </span>
         </nav>
 
         <div className="sidebar-user">
@@ -67,7 +72,10 @@ export function AppLayout() {
             <small>{user.role}</small>
           </div>
 
-          <button onClick={handleLogout}>Sair</button>
+          <button onClick={handleLogout}>
+            <LogOut size={18} />
+            <span>Sair</span>
+          </button>
         </div>
       </aside>
 

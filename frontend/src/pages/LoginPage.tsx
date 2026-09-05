@@ -4,6 +4,14 @@ import { Navigate, useNavigate } from 'react-router'
 
 import { getToken, login } from '../services/auth'
 
+import {
+  LockKeyhole,
+  LogIn,
+  Mail,
+} from 'lucide-react'
+
+import './LoginPage.css'
+
 export function LoginPage() {
   const navigate = useNavigate()
 
@@ -35,18 +43,22 @@ export function LoginPage() {
     }
   }
 
-  return (
-    <main className="login-page">
-      <section className="login-card">
-        <div className="login-brand">
-          <span>BE</span>
-        </div>
+ return (
+  <main className="login-page">
+    <section className="login-card">
+      <div className="login-brand">
+        <span>BE</span>
+      </div>
 
-        <h1>Estoque Bruna Essence</h1>
-        <p>Entre para gerenciar produtos e estoque.</p>
+      <h1>Estoque Bruna Essence</h1>
+      <p>Entre para gerenciar produtos e estoque.</p>
 
-        <form onSubmit={handleSubmit}>
-          <label htmlFor="email">E-mail</label>
+      <form onSubmit={handleSubmit}>
+        <label htmlFor="email">E-mail</label>
+
+        <div className="login-input">
+          <Mail size={18} />
+
           <input
             id="email"
             type="email"
@@ -55,8 +67,13 @@ export function LoginPage() {
             placeholder="seu@email.com"
             required
           />
+        </div>
 
-          <label htmlFor="password">Senha</label>
+        <label htmlFor="password">Senha</label>
+
+        <div className="login-input">
+          <LockKeyhole size={18} />
+
           <input
             id="password"
             type="password"
@@ -65,14 +82,25 @@ export function LoginPage() {
             placeholder="Digite sua senha"
             required
           />
+        </div>
 
-          {error && <div className="login-error">{error}</div>}
+        {error && (
+          <div className="login-error">
+            {error}
+          </div>
+        )}
 
-          <button type="submit" disabled={loading}>
-            {loading ? 'Entrando...' : 'Entrar'}
-          </button>
-        </form>
-      </section>
-    </main>
-  )
+        <button
+          className="login-button"
+          type="submit"
+          disabled={loading}
+        >
+          <LogIn size={18} />
+
+          {loading ? 'Entrando...' : 'Entrar'}
+        </button>
+      </form>
+    </section>
+  </main>
+)
 }

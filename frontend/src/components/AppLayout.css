@@ -1,0 +1,132 @@
+.app-layout {
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  min-height: 100vh;
+  background: #f7f5f6;
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding: 28px 18px 20px;
+  background: #6f304b;
+  color: white;
+}
+
+.sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 38px;
+  padding: 0 4px;
+}
+
+.sidebar-brand > span {
+  display: grid;
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+  place-items: center;
+  border-radius: 12px;
+  background: white;
+  color: #6f304b;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.sidebar-brand div,
+.sidebar-user div {
+  display: grid;
+  gap: 3px;
+}
+
+.sidebar-brand strong {
+  font-size: 15px;
+}
+
+.sidebar small {
+  color: #e8cad7;
+  font-size: 12px;
+}
+
+.sidebar nav {
+  display: grid;
+  gap: 6px;
+}
+
+.sidebar nav a,
+.disabled-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 44px;
+  padding: 11px 13px;
+  border-radius: 10px;
+  color: #f9edf2;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.sidebar nav a:hover,
+.sidebar-user button:hover {
+  background: rgb(255 255 255 / 10%);
+}
+
+.sidebar nav a.active {
+  background: rgb(255 255 255 / 15%);
+}
+
+.disabled-link {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.sidebar-user {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+  padding: 18px 4px 0;
+  border-top: 1px solid rgb(255 255 255 / 15%);
+}
+
+.sidebar-user button {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: #f9edf2;
+  font-size: 13px;
+}
+
+.app-content {
+  min-width: 0;
+  padding: 32px;
+}
+
+@media (max-width: 760px) {
+  .app-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    min-height: auto;
+  }
+
+  .sidebar nav {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .sidebar-user {
+    margin-top: 24px;
+  }
+
+  .app-content {
+    padding: 20px;
+  }
+}

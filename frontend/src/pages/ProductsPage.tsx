@@ -9,6 +9,14 @@ import {
 import type { Category } from '../types/category'
 import type { Product } from '../types/product'
 import { Link } from 'react-router'
+import {
+  Layers,
+  PackagePlus,
+  Plus,
+  Search,
+} from 'lucide-react'
+
+import './ProductsPage.css'
 
 export function ProductsPage() {
   const [products, setProducts] = useState<Product[]>([])
@@ -91,144 +99,179 @@ export function ProductsPage() {
 
   return (
     <div className="page">
-      <div className="page-header">
-        <div>
-          <h1>Produtos</h1>
-          <p>Cadastre os modelos comercializados pela loja.</p>
+        <div className="page-header">
+        <h1>Produtos</h1>
+        <p>Cadastre e organize os produtos comercializados pela loja.</p>
         </div>
-      </div>
 
-      <section className="product-form-card">
-        <h2>Novo produto</h2>
+        <section className="product-form-card products-form-card">
+        <div className="product-card-header">
+            <div className="product-card-icon">
+            <PackagePlus size={21} />
+            </div>
 
-        <form onSubmit={handleSubmit}>
-          <div className="form-field">
+            <div>
+            <h2>Novo produto</h2>
+            <p>Cadastre um modelo antes de adicionar suas variações.</p>
+            </div>
+        </div>
+
+        <form className="products-form" onSubmit={handleSubmit}>
+            <div className="form-field">
             <label htmlFor="product-name">Nome</label>
-            <input
-              id="product-name"
-              value={name}
-              onChange={(event) => setName(event.target.value)}
-              placeholder="Ex.: Conjunto Luna"
-              minLength={2}
-              maxLength={150}
-              required
-            />
-          </div>
 
-          <div className="form-field">
+            <input
+                id="product-name"
+                value={name}
+                onChange={(event) => setName(event.target.value)}
+                placeholder="Ex.: Conjunto Luna"
+                minLength={2}
+                maxLength={150}
+                required
+            />
+            </div>
+
+            <div className="form-field">
             <label htmlFor="product-category">Categoria</label>
+
             <select
-              id="product-category"
-              value={categoryId}
-              onChange={(event) => setCategoryId(event.target.value)}
-              required
+                id="product-category"
+                value={categoryId}
+                onChange={(event) => setCategoryId(event.target.value)}
+                required
             >
-              <option value="">Selecione</option>
+                <option value="">Selecione</option>
 
-              {categories.map((category) => (
+                {categories.map((category) => (
                 <option key={category.id} value={category.id}>
-                  {category.name}
+                    {category.name}
                 </option>
-              ))}
+                ))}
             </select>
-          </div>
+            </div>
 
-          <div className="form-field">
+            <div className="form-field">
             <label htmlFor="product-brand">Marca</label>
+
             <input
-              id="product-brand"
-              value={brand}
-              onChange={(event) => setBrand(event.target.value)}
-              placeholder="Ex.: Bruna Essence"
-              maxLength={100}
+                id="product-brand"
+                value={brand}
+                onChange={(event) => setBrand(event.target.value)}
+                placeholder="Ex.: Bruna Essence"
+                maxLength={100}
             />
-          </div>
+            </div>
 
-          <div className="form-field full-width">
+            <div className="form-field full-width">
             <label htmlFor="product-description">Descrição</label>
+
             <textarea
-              id="product-description"
-              value={description}
-              onChange={(event) => setDescription(event.target.value)}
-              placeholder="Descrição opcional do produto"
-              rows={3}
+                id="product-description"
+                value={description}
+                onChange={(event) => setDescription(event.target.value)}
+                placeholder="Descrição opcional do produto"
+                rows={3}
             />
-          </div>
+            </div>
 
-          {error && (
-            <div className="form-error full-width">{error}</div>
-          )}
+            {error && (
+            <div className="form-error full-width">
+                {error}
+            </div>
+            )}
 
-          <div className="form-actions full-width">
-            <button disabled={saving}>
-              {saving ? 'Salvando...' : 'Cadastrar produto'}
+            <div className="form-actions full-width">
+            <button
+                className="product-submit"
+                disabled={saving}
+            >
+                <Plus size={18} />
+
+                {saving ? 'Salvando...' : 'Cadastrar produto'}
             </button>
-          </div>
+            </div>
         </form>
-      </section>
+        </section>
 
-      <section className="table-card">
-        <div className="table-toolbar">
-          <h2>Produtos cadastrados</h2>
+        <section className="table-card">
+        <div className="product-list-header">
+            <div className="product-list-title">
+            <h2>Produtos cadastrados</h2>
 
-          <input
-            value={search}
-            onChange={(event) => setSearch(event.target.value)}
-            placeholder="Buscar produto"
-          />
+            {!loading && (
+                <span className="product-count">
+                {filteredProducts.length}
+                </span>
+            )}
+            </div>
+
+            <div className="product-search">
+            <Search size={17} />
+
+            <input
+                value={search}
+                onChange={(event) => setSearch(event.target.value)}
+                placeholder="Buscar produto"
+            />
+            </div>
         </div>
 
         {loading ? (
-          <p>Carregando produtos...</p>
+            <p>Carregando produtos...</p>
         ) : filteredProducts.length === 0 ? (
-          <p>Nenhum produto encontrado.</p>
+            <p>Nenhum produto encontrado.</p>
         ) : (
-          <table>
+            <table>
             <thead>
-              <tr>
+                <tr>
                 <th>Produto</th>
                 <th>Categoria</th>
                 <th>Marca</th>
                 <th>Status</th>
                 <th>Ações</th>
-              </tr>
+                </tr>
             </thead>
 
             <tbody>
-            {filteredProducts.map((product) => (
+                {filteredProducts.map((product) => (
                 <tr key={product.id}>
-                <td>
+                    <td>
                     <strong>{product.name}</strong>
 
                     {product.description && (
-                    <small className="table-description">
+                        <small className="table-description">
                         {product.description}
-                    </small>
+                        </small>
                     )}
-                </td>
+                    </td>
 
-                <td>{getCategoryName(product.category_id)}</td>
+                    <td>
+                    {getCategoryName(product.category_id)}
+                    </td>
 
-                <td>{product.brand ?? '—'}</td>
+                    <td>{product.brand ?? '—'}</td>
 
-                <td>
-                    <span className="status-active">Ativo</span>
-                </td>
+                    <td>
+                    <span className="status-active">
+                        Ativo
+                    </span>
+                    </td>
 
-                <td>
+                    <td>
                     <Link
-                    className="table-action"
-                    to={`/products/${product.id}/variants`}
+                        className="product-action"
+                        to={`/products/${product.id}/variants`}
                     >
-                    Ver variações
+                        <Layers size={15} />
+                        Variações
                     </Link>
-                </td>
+                    </td>
                 </tr>
-            ))}
+                ))}
             </tbody>
-          </table>
+            </table>
         )}
-      </section>
+        </section>
     </div>
-  )
+    )
 }
